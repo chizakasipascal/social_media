@@ -7,6 +7,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { AppResolver } from './app.resolver';
+import { ArticleModule } from './article/article.module';
 
 @Module({
   imports: [
@@ -25,12 +26,13 @@ import { AppResolver } from './app.resolver';
         password: ConfigService.get('POSTGRESS_PASSWORD'), //'geek',
         username: ConfigService.get('POSTGRESS_USER'), //'postgres',
         // entities: [],
-        entities: [join(__dirname, '**', '*.modul.{ts,js}')],
+        entities: [join(__dirname, '**', '*.model.{ts,js}')],
         database: ConfigService.get('POSTGRESS_DATABASE'), //'social_media',
         synchronize: true,
         logging: true,
       }),
     }),
+    ArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
