@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Article } from './models/article.model';
 import { Repository } from 'typeorm';
 import { ArticleUpdateInput, ArticleUpdateOutput } from './dto/article-update.dto';
+import { ArticleDeleteOutput } from './dto/article-delete.dto';
 
 @Injectable()
 export class ArticleService {
@@ -36,4 +37,22 @@ export class ArticleService {
         return { article }
 
     }
+
+
+    async updateDelete(
+        articleId: Article['id'],
+    ): Promise<ArticleDeleteOutput> {
+        const article = await this.articleRepository.findOneByOrFail({
+            id: articleId
+        });
+        await article.remove();
+        return { articleId }
+
+    }
+
+
+    async articlesList(): Promise<Article[]> {
+        return this.articleRepository.find();
+    }
+
 }

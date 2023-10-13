@@ -5,6 +5,7 @@ import { ArticleService } from '../article.service';
 import { ArticleCreateInput, ArticleCreateOutput } from '../dto/article-create.dto';
 import { Article } from '../models/article.model';
 import { ArticleUpdateInput, ArticleUpdateOutput } from '../dto/article-update.dto';
+import { ArticleDeleteOutput } from '../dto/article-delete.dto';
 // eslint-disable-next-line prettier/prettier
 
 @Resolver(Article)
@@ -20,6 +21,12 @@ export class ArticleMutationsResolver {
     @Mutation(() => ArticleUpdateOutput)
     async articleUpdate(@Args({ name: 'articleId', type: () => ID }) articleId: Article['id'], @Args('input') input: ArticleUpdateInput) {
         return this.articleService.updateArticle(articleId, input);
+    }
+
+
+    @Mutation(() => ArticleDeleteOutput)
+    async articleDelete(@Args({ name: 'articleId', type: () => ID }) articleId: Article['id']) {
+        return this.articleService.updateDelete(articleId);
     }
 }
 

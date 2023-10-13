@@ -1,14 +1,12 @@
 // eslint-disable-next-line prettier/prettier
 /* eslint-disable prettier/prettier */
 
-import { InputType, ObjectType } from "@nestjs/graphql";
-
-import { ArticleCreateInput, ArticleCreateOutput } from "./article-create.dto";
-
-@InputType()
-export class ArticleUpdateInput extends ArticleCreateInput {
-}
+import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Article } from "../models/article.model";
 
 @ObjectType()
-export class ArticleUpdateOutput extends ArticleCreateOutput {
+export class ArticleDeleteOutput {
+    @Field(() => ID)
+    articleId: Article['id']
+
 }
